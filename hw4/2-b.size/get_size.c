@@ -77,78 +77,19 @@ static void construct_heap(heap *h)
 
 static void solve(heap *h)
 {
-	heap h2;
-	int total_sum = 0;
-	int a = pop(h);
-	int b = pop(h);
-	int sum = a + b;
-	total_sum += sum;
-	push(&h2, sum);
-	while (1)
+	int a;
+	int b;
+	int sum;
+	int total_sum;
+
+	total_sum = 0;
+	while (h->size > 1)
 	{
-		if (h->size == 0 && h2.size == 1)
-			break;
-		if (h->size > 1 && h2.size == 0)
-		{
-			a = pop(h);
-			b = pop(h);
-		}
-		else if (h->size == 0 && h2.size > 1)
-		{
-			a = pop(&h2);
-			b = pop(&h2);
-		}
-		else if (h->size == 1 && h2.size == 1)
-		{
-			a = pop(h);
-			b = pop(&h2);
-		}
-		else if (h->size > 1 && h2.size > 1)
-		{
-			if (h->min_heap[1] < h2.min_heap[1])
-				a = pop(h);
-			else
-				a = pop(&h2);
-			if (h->min_heap[1] < h2.min_heap[1])
-				b = pop(h);
-			else
-				b = pop(&h2);
-		}
-		else if (h->size > 1 && h2.size == 1)
-		{
-			if (h->min_heap[1] < h2.min_heap[1])
-			{
-				a = pop(h);
-				if (h->min_heap[1] < h2.min_heap[1])
-					b = pop(h);
-				else
-					b = pop(&h2);
-			}
-			else
-			{
-				a = pop(&h2);
-				b = pop(h);
-			}			
-		}
-		else if (h->size == 1 && h2.size > 1)
-		{
-			if (h->min_heap[1] < h2.min_heap[1])
-			{
-				a = pop(h);
-				b = pop(&h2);
-			}
-			else
-			{
-				a = pop(&h2);
-				if (h->min_heap[1] < h2.min_heap[1])
-					b = pop(h);
-				else
-					b = pop(&h2);
-			}
-		}
+		a = pop(h);
+		b = pop(h);
 		sum = a + b;
 		total_sum += sum;
-		push(&h2, sum);
+		push(h, sum);
 	}
 	printf("%d\n", total_sum);
 }
