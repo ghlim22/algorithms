@@ -145,23 +145,22 @@ void p1() {
 
 double birthday(int n) {
 	std::vector<int> p;
-	int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	int days[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	for (int i = 0; i < n; ++i) {
 		int mo = rand() % 12 + 1;
 		int day = rand() % (days[mo] - 1) + 1;
 		p.push_back(mo * 100 + day);
 	}
 
-	int deno = n - 1;
-	int nume = 0;
-	for (int i = 0; i < p.size(); ++i) {
-		for (int j = 0; j < i; ++j) {
-			if (p[i] == p[j])
-				nume++;
-		}
-	}
+  for (int i = 0; i < p.size(); ++i) {
+    for (int j = 0; j < i; ++j) {
+      if (p[i]==p[j]) {
+        return true;
+      }
+    }
+  }
 
-	return double(nume) / deno;
+  return false;
 }
 
 int main() {
@@ -180,9 +179,14 @@ int main() {
 
   //p1();
   
-  for (int i = 1; i < 20; ++i) {
-	std::cout << "n: " << i * 5 << " prob: " << birthday(i * 5) << '\n';
+  int test = 30;
+  int cnt = 0;
+  for (int i = 1; i < test; ++i) {
+    if (birthday(5)) {
+      cnt++;
+    }
   }
+  std::cout << double(cnt) / test;
 
   return 0;
 }
