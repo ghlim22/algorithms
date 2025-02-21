@@ -28,13 +28,15 @@ template <typename T> class SLinkedList
 		const T& front() const;
 		void addFront(const T& e);
 		void removeFront();
+		int size() const;
 	private:
 		Node<T> *_head;
+		int _size;
 };
 
 template <typename T>
 SLinkedList<T>::SLinkedList() :
-_head(NULL) {}
+_head(NULL) , _size(0) {}
 
 template <typename T>
 SLinkedList<T>::~SLinkedList() {
@@ -58,6 +60,7 @@ void SLinkedList<T>::addFront(const T& e) {
 	Node<T> *n = new Node<T>(e);
 	n->_next = _head;
 	_head = n;
+	_size++;
 }
 
 template<typename T>
@@ -68,4 +71,10 @@ void SLinkedList<T>::removeFront() {
 	Node<T> *old = _head;
 	_head = old->_next;
 	delete old;
+	_size--;
+}
+
+template<typename T>
+int SLinkedList<T>::size() const {
+	return _size;
 }
