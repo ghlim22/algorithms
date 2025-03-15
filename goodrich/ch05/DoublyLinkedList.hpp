@@ -1,6 +1,7 @@
+#pragma once
+
 #include <cstddef>
 #include <exception>
-#include <iostream>
 
 template <typename T> class DLinkedList
 {
@@ -10,7 +11,9 @@ public:
   DLinkedList<T> &operator=(const DLinkedList<T> &other);
   ~DLinkedList<T>();
   bool     empty() const;
+  T       &front();
   const T &front() const;
+  T       &back();
   const T &back() const;
   void     addFront(const T &e);
   void     addBack(const T &e);
@@ -110,9 +113,19 @@ template <typename T> bool DLinkedList<T>::empty() const
   return _header->_next == _trailer;
 }
 
+template <typename T> T &DLinkedList<T>::front()
+{
+  return _header->_next->_elem;
+}
+
 template <typename T> const T &DLinkedList<T>::front() const
 {
   return _header->_next->_elem;
+}
+
+template <typename T> T &DLinkedList<T>::back()
+{
+  return _trailer->_prev->_elem;
 }
 
 template <typename T> const T &DLinkedList<T>::back() const
@@ -132,17 +145,17 @@ template <typename T> void DLinkedList<T>::addBack(const T &e)
 
 template <typename T> void DLinkedList<T>::removeFront()
 {
-  if (empty()) {
-    throw std::exception();
-  }
+  // if (empty()) {
+  //   throw std::exception();
+  // }
   remove(_header->_next);
 }
 
 template <typename T> void DLinkedList<T>::removeBack()
 {
-  if (empty()) {
-    throw std::exception();
-  }
+  // if (empty()) {
+  //   throw std::exception();
+  // }
   remove(_trailer->_prev);
 }
 
@@ -174,19 +187,4 @@ template <typename T> void listReverse(DLinkedList<T> &L)
     L.addBack(D.front());
     D.removeFront();
   }
-}
-
-int main(void)
-{
-  DLinkedList<int> list;
-
-  list.addFront(1);
-  list.addFront(3);
-  list.addBack(2);
-  while (!list.empty()) {
-    std::cout << list.front() << '\n';
-    list.removeFront();
-  }
-
-  return 0;
 }
