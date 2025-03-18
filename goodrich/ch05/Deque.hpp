@@ -10,10 +10,10 @@ public:
   Deque(const Deque<T> &other);
   Deque<T> &operator=(const Deque<T> &other);
   ~Deque();
-  void     insert_front(const T &e);
-  void     insert_back(const T &e);
-  void     erase_front();
-  void     erase_back();
+  void     push_front(const T &e);
+  void     push_back(const T &e);
+  void     pop_front();
+  void     pop_back();
   T       &front();
   const T &front() const;
   T       &back();
@@ -52,27 +52,27 @@ template <typename T> Deque<T> &Deque<T>::operator=(const Deque<T> &other)
 
 template <typename T> Deque<T>::~Deque() {}
 
-template <typename T> void Deque<T>::insert_front(const T &e)
+template <typename T> void Deque<T>::push_front(const T &e)
 {
-  _container.addFront(e);
+  _container.push_front(e);
   ++_size;
 }
 
-template <typename T> void Deque<T>::insert_back(const T &e)
+template <typename T> void Deque<T>::push_back(const T &e)
 {
-  _container.addBack(e);
+  _container.push_back(e);
   ++_size;
 }
 
-template <typename T> void Deque<T>::erase_front()
+template <typename T> void Deque<T>::pop_front()
 {
-  _container.erase_front();
+  _container.pop_front();
   --_size;
 }
 
-template <typename T> void Deque<T>::erase_back()
+template <typename T> void Deque<T>::pop_back()
 {
-  _container.erase_back();
+  _container.pop_back();
   --_size;
 }
 
