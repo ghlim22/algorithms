@@ -15,10 +15,10 @@ public:
   const T &front() const;
   T       &back();
   const T &back() const;
-  void     addFront(const T &e);
-  void     addBack(const T &e);
-  void     removeFront();
-  void     removeBack();
+  void     push_front(const T &e);
+  void     push_back(const T &e);
+  void     pop_front();
+  void     pop_back();
 
 protected:
   class Node
@@ -75,7 +75,7 @@ DLinkedList<T>::DLinkedList(const DLinkedList<T> &other)
 
   Node *cursor = other._header->_next;
   for (; cursor != other._trailer; cursor = cursor->_next) {
-    addFront(cursor->_elem);
+    push_front(cursor->_elem);
   }
   return *this;
 }
@@ -88,12 +88,12 @@ DLinkedList<T> &DLinkedList<T>::operator=(const DLinkedList<T> &other)
   }
 
   while (!empty()) {
-    removeFront();
+    pop_front();
   }
 
   Node *cursor = other._header->_next;
   for (; cursor != other._trailer; cursor = cursor->_next) {
-    addFront(cursor->_elem);
+    push_front(cursor->_elem);
   }
 
   return *this;
@@ -102,7 +102,7 @@ DLinkedList<T> &DLinkedList<T>::operator=(const DLinkedList<T> &other)
 template <typename T> DLinkedList<T>::~DLinkedList()
 {
   while (!empty()) {
-    removeFront();
+    pop_front();
   }
   delete _header;
   delete _trailer;
@@ -133,17 +133,17 @@ template <typename T> const T &DLinkedList<T>::back() const
   return _trailer->_prev->_elem;
 }
 
-template <typename T> void DLinkedList<T>::addFront(const T &e)
+template <typename T> void DLinkedList<T>::push_front(const T &e)
 {
   add(_header->_next, e);
 }
 
-template <typename T> void DLinkedList<T>::addBack(const T &e)
+template <typename T> void DLinkedList<T>::push_back(const T &e)
 {
   add(_trailer, e);
 }
 
-template <typename T> void DLinkedList<T>::removeFront()
+template <typename T> void DLinkedList<T>::pop_front()
 {
   // if (empty()) {
   //   throw std::exception();
@@ -151,7 +151,7 @@ template <typename T> void DLinkedList<T>::removeFront()
   remove(_header->_next);
 }
 
-template <typename T> void DLinkedList<T>::removeBack()
+template <typename T> void DLinkedList<T>::pop_back()
 {
   // if (empty()) {
   //   throw std::exception();
@@ -180,11 +180,11 @@ template <typename T> void listReverse(DLinkedList<T> &L)
 {
   DLinkedList<T> D;
   while (!L.empty()) {
-    D.addFront(L.front());
-    L.removeFront();
+    D.push_front(L.front());
+    L.pop_front();
   }
   while (!D.empty()) {
-    L.addBack(D.front());
-    D.removeFront();
+    L.push_back(D.front());
+    D.pop_front();
   }
 }
